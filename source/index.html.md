@@ -2,13 +2,10 @@
 title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
   - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+
   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -19,221 +16,306 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+PostIt is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+# Development
 
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+
+The application was developed with [NodeJs](http://nodejs.org) and [Express](http://expressjs.com) is used for routing. The [Postgres](http://postgresql.com) database was used with [sequelize](http://sequelizejs.com) as the ORM
+
+
+#Installation
+
+1.  Ensure you have NodeJs and postgres installed
+2.  Clone the repository `https://github.com/jchinonso/PostIt`
+3.  Change your directory `cd PostIt`
+4.  Install all dependencies `npm install`
+5.  Start the app `npm run start:dev` for development Or
+6.  Run `npm start` to use transpiled code
+7.  Use [postman](https://www.getpostman.com/) to consume the API
 
 # Authentication
 
-> To authorize, use this code:
+PostIt uses (email and password) to login to allow access to the API protected routes. On registering or login, a token is generated.
+postIt expects for the token to be included in all API requests to the server in a header that looks like the following:
+x-access-token: token
 
-```ruby
-require 'kittn'
+# Api Summary
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+## Below are the API endpoints and their functions
+EndPoint                        |   Functionality
+--------------------------------|------------------------
+POST /api/user/signin           |   Logs a user in.
+POST /api/user/signup           |   Create a new user.            
+GET /api/user                   |   Get all users.
+POST /api/group                 |   Creates a new group.
+POST /api/group/groupid/user    |   Add user to group.
+POST /api/group/groupid/message |   Add message to group.
+GET /api/group/groupid/message  |   Get all messages that belongs to group.
 
-```python
-import kittn
 
-api = kittn.authorize('meowmeowmeow')
-```
+# Users
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+## Sign up User
+### Request
 
-```javascript
-const kittn = require('kittn');
+  * Endpoint: Post: `/api/v1/user/signup` 
+  * Body  `(application/json)` 
 
-let api = kittn.authorize('meowmeowmeow');
-```
+### Response
+  * Status: `201 created` 
+  * Body  `(application/json)` 
 
-> Make sure to replace `meowmeowmeow` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+> Request:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
+ {
+    "username": "jchinonso12",
+    "email": "johnsonchinonso919@gmail.com",
+    "password": "password",
+    "phoneNumber": "08139308818",
   },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
+
+```
+<aside class="notice">You must set the token at the header after sign up to access protected routes (x-access-token: token)</aside>
+
+> Response:
+
+```json
+ {
+   "id": 1,
+    "username": "jchinonso12",
+    "email": "johnsonchinonso919@gmail.com",
+    "phoneNumber": "08139308818",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpjaGlub25zbzEyIiwidXNlcklkIjozLCJlbWFpbCI6ImpvaG5zb25jaGlub25zbzkxOUBnbWFpbC5jb20iLCJpYXQiOjE1MDU5MDY0NDgsImV4cCI6MTUwNjA3OTI0OH0.ZAQBAUM9EJ1JP60VqmcfvmbBawOIqpZwphLLzrruCyg"
+}
+
 ```
 
-This endpoint retrieves all kittens.
+## Sign in User
+### Request
 
-### HTTP Request
+  * Endpoint: Post: `/api/v1/user/signin` 
+  * Body  `(application/json)` 
 
-`GET http://example.com/api/kittens`
+### Response
+  * Status: `200 created` 
+  * Body  `(application/json)` 
 
-### Query Parameters
+<aside class="notice">You must set the token at the header after login to access protected routes (x-access-token: token)</aside>
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+> Request:
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+```json
+ {
+    "email": "johnsonchinonso919@gmail.com",
+    "password": "password",
+ },
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
 ```
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
+> Response:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+    "msg": "You have been loggedin successfully",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpjaGlub25zb29vIiwidXNlcklkIjoxLCJlbWFpbCI6ImpvaG51dUBnbWFpbC5jb20iLCJpYXQiOjE1MDU4MDE1ODksImV4cCI6MTUwNTk3NDM4OX0.DiDVLiuM75wwnbw8XMS0bNMBBnkh0WG9RBqqA4i7LuQ"
+}
+
+```
+
+# Groups
+## Create Group
+
+### Request
+
+  * Endpoint: Post: `/api/v1/group` 
+  * Body  `(application/json)` 
+
+### Response
+  * Status: `201 created` 
+  * Body  `(application/json)` 
+
+> Request:
+
+```json
+ {
+    "name": "Nairobi-fellows",
+    "description": "Talks about andela kenya"
+  },
+
+```
+<aside class="notice">You must set the token at the header after sign up to access protected routes (x-access-token: token)</aside>
+
+> Response:
+
+```json
+ {
+    "id": 1,
+    "name": "Nairobi-fellows",
+    "description": "Talks about andela kenya",
+    "creator": "jchinonsooo"
+}
+
+```
+
+## Retrieve all Groups
+
+### Request
+
+  * Endpoint: Get: `/api/v1/group` 
+  * Body  `(application/json)` 
+
+### Response
+  * Status: `200 ok` 
+  * Body  `(application/json)` 
+
+
+> Response:
+
+```json
+ {
+    "groups": [
+        {
+            "id": 1,
+            "name": "Nairobi-fellows",
+            "description": "talks about andela nairobi",
+            "creator": "jdoe",
+            "createdAt": "2017-09-20T19:56:54.681Z"
+        }
+    ]
 }
 ```
 
-This endpoint retrieves a specific kitten.
+## Add User to Group
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+### Request
 
-### HTTP Request
+  * Endpoint: Post: `/api/v1/group/groupId/user` 
+  * Body  `(application/json)` 
 
-`GET http://example.com/kittens/<ID>`
+### Response
+  * Status: `201 created` 
+  * Body  `(application/json)` 
 
-### URL Parameters
+> Request:
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+```json
+ {
+    "username": "johnnyp",
+  },
 
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
 ```
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
+> Response:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "msg": "User added successfully to Group"
+}
+
+```
+## Retrieve all Group Members
+
+### Request
+
+  * Endpoint: Get: `/api/v1/group/groupId` 
+  * Body  `(application/json)` 
+
+### Response
+  * Status: `200 ok` 
+  * Body  `(application/json)` 
+
+
+> Response:
+
+```json
+ {
+    "groupMembers": [
+        {
+            "id": 1,
+            "username": "jdoe",
+            "email": "johnuu@gmail.com",
+            "phoneNumber": "997897898797879",
+            "createdAt": "2017-09-20T19:55:51.699Z"
+        },
+        {
+            "id": 2,
+            "username": "johnny",
+            "email": "johnnyp@gmail.com",
+            "phoneNumber": "997897898797879",
+            "createdAt": "2017-09-20T19:56:22.891Z"
+        },
+    ]
 }
 ```
 
-This endpoint retrieves a specific kitten.
+## Add Message to Group
 
-### HTTP Request
+### Request
 
-`DELETE http://example.com/kittens/<ID>`
+  * Endpoint: Post: `/api/v1/group/groupId/message` 
+  * Body  `(application/json)` 
 
-### URL Parameters
+### Response
+  * Status: `201 created` 
+  * Body  `(application/json)` 
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+> Request:
+
+```json
+ {
+    "content": "i need some pizza",
+    "priority": "mormal"
+  },
+
+```
+
+> Response:
+
+```json
+{
+    "id": 1,
+    "content": "i need some pizza",
+    "sender": "jdoe",
+    "priority": "normal",
+    "isRead": false,
+    "createdAt": "2017-09-20T20:43:01.042Z"
+}
+
+```
+
+## Retrive all Group Messages 
+
+### Request
+
+  * Endpoint: Get: `/api/v1/group/groupId/message` 
+  * Body  `(application/json)` 
+
+### Response
+  * Status: `200 ok` 
+  * Body  `(application/json)` 
+
+
+> Response:
+
+```json
+{
+    "messages": [
+        {
+            "id": 1,
+            "content": "i love pizza",
+            "priority": "normal",
+            "groupId": 1,
+            "sender": "jdoe",
+            "isRead": false,
+            "createdAt": "2017-09-20T20:43:01.042Z",
+            "updatedAt": "2017-09-20T20:43:01.042Z"
+        }
+    ]
+}
+
+```
+
 
