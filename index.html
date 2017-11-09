@@ -250,25 +250,28 @@
               </ul>
           </li>
           <li>
-            <a href="#groups" class="toc-h1 toc-link" data-title="Groups">Groups</a>
+            <a href="#todos" class="toc-h1 toc-link" data-title="Todos">Todos</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#create-group" class="toc-h2 toc-link" data-title="Groups">Create Group</a>
+                    <a href="#create-todo" class="toc-h2 toc-link" data-title="Todos">Create Todo</a>
                   </li>
                   <li>
-                    <a href="#retrieve-all-groups" class="toc-h2 toc-link" data-title="Groups">Retrieve all Groups</a>
+                    <a href="#retrieve-all-todos" class="toc-h2 toc-link" data-title="Todos">Retrieve all Todos</a>
                   </li>
                   <li>
-                    <a href="#add-user-to-group" class="toc-h2 toc-link" data-title="Groups">Add User to Group</a>
+                    <a href="#add-collaborators-to-todo" class="toc-h2 toc-link" data-title="Todos">Add Collaborators to Todo</a>
                   </li>
                   <li>
-                    <a href="#retrieve-all-group-members" class="toc-h2 toc-link" data-title="Groups">Retrieve all Group Members</a>
+                    <a href="#add-task-to-todo" class="toc-h2 toc-link" data-title="Todos">Add task to todo</a>
                   </li>
                   <li>
-                    <a href="#add-message-to-group" class="toc-h2 toc-link" data-title="Groups">Add Message to Group</a>
+                    <a href="#retrieve-all-tasks-that-belongs-to-todo" class="toc-h2 toc-link" data-title="Todos">Retrieve all Tasks that belongs to Todo</a>
                   </li>
                   <li>
-                    <a href="#retrive-all-group-messages" class="toc-h2 toc-link" data-title="Groups">Retrive all Group Messages</a>
+                    <a href="#update-task" class="toc-h2 toc-link" data-title="Todos">Update task</a>
+                  </li>
+                  <li>
+                    <a href="#delete-a-task" class="toc-h2 toc-link" data-title="Todos">Delete a task</a>
                   </li>
               </ul>
           </li>
@@ -284,23 +287,21 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>PostIt is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.</p>
+<p>Worklist is a simple todo list application that allows users to create lists of tasks to be completed and track their progress on these tasks.</p>
 <h1 id='development'>Development</h1>
-<p>The application was developed with <a href="http://nodejs.org">NodeJs</a> and <a href="http://expressjs.com">Express</a> is used for routing. The <a href="http://postgresql.com">Postgres</a> database was used with <a href="http://sequelizejs.com">sequelize</a> as the ORM</p>
+<p>The application was developed with <a href="http://nodejs.org">NodeJs</a> and <a href="http://expressjs.com">Express</a> is used for routing. The <a href="https://www.mongodb.com/">MongoDb</a> database was used with <a href="https://mongoosejs.com">mongoose</a> as the ODM</p>
 <h1 id='installation'>Installation</h1>
 <ol>
-<li> Ensure you have NodeJs and postgres installed</li>
-<li> Clone the repository <code>https://github.com/jchinonso/PostIt</code></li>
-<li> Change your directory <code>cd PostIt</code></li>
+<li> Ensure you have NodeJs and Mongodb installed</li>
+<li> Clone the repository <code>https://github.com/jchinonso/WorkList</code></li>
+<li> Change your directory <code>cd WorkList</code></li>
 <li> Install all dependencies <code>npm install</code></li>
-<li> Start the app <code>npm run start:dev</code> for development Or</li>
-<li> Run <code>npm start</code> to use transpiled code</li>
-<li> Use <a href="https://www.getpostman.com/">postman</a> to consume the API</li>
+<li> Start the app <code>npm start</code> for development Or</li>
+<li> Use [postman] to consume the API</li>
 </ol>
 <h1 id='authentication'>Authentication</h1>
-<p>PostIt uses (email and password) to login to allow access to the API protected routes. On registering or login, a token is generated.
-postIt expects for the token to be included in all API requests to the server in a header that looks like the following:
-x-access-token: token</p>
+<p>CheckList uses (email and password) to login to allow access to the API protected routes. On registering or login, a token is generated.
+CheckList expect the token to be included in the header as <code>x-access-token: token</code>. All API requests to the server are stated below</p>
 <h1 id='api-summary'>Api Summary</h1><h2 id='below-are-the-api-endpoints-and-their-functions'>Below are the API endpoints and their functions</h2>
 <table><thead>
 <tr>
@@ -309,32 +310,32 @@ x-access-token: token</p>
 </tr>
 </thead><tbody>
 <tr>
-<td>POST /api/user/signin</td>
+<td>POST /api/v1/user/signin</td>
 <td>Logs a user in.</td>
 </tr>
 <tr>
-<td>POST /api/user/signup</td>
+<td>POST /api/v1/user/signup</td>
 <td>Create a new user.</td>
 </tr>
 <tr>
-<td>GET /api/user</td>
+<td>GET /api/v1/user</td>
 <td>Get all users.</td>
 </tr>
 <tr>
-<td>POST /api/group</td>
-<td>Creates a new group.</td>
+<td>POST /api/v1/todo</td>
+<td>Creates a new todo.</td>
 </tr>
 <tr>
-<td>POST /api/group/groupid/user</td>
-<td>Add user to group.</td>
+<td>POST /api/v1/todo/:todoId/task</td>
+<td>Add task to todo.</td>
 </tr>
 <tr>
-<td>POST /api/group/groupid/message</td>
-<td>Add message to group.</td>
+<td>POST /api/v1/todo/:todoId/collaborator</td>
+<td>Add collaborators to todo.</td>
 </tr>
 <tr>
-<td>GET /api/group/groupid/message</td>
-<td>Get all messages that belongs to group.</td>
+<td>PUT /api/v1/todo/task/:taskId</td>
+<td>Update a task.</td>
 </tr>
 </tbody></table>
 <h1 id='users'>Users</h1><h2 id='sign-up-user'>Sign up User</h2><h3 id='request'>Request</h3>
@@ -352,10 +353,10 @@ x-access-token: token</p>
 <p>Request:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnson chinonso"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jchinonso12"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnsonchinonso919@gmail.com"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08139308818"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="w">
   </span><span class="p">},</span><span class="w">
 
 </span></code></pre>
@@ -365,10 +366,10 @@ x-access-token: token</p>
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
-   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnson chinonso"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jchinonso12"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnsonchinonso919@gmail.com"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"08139308818"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpjaGlub25zbzEyIiwidXNlcklkIjozLCJlbWFpbCI6ImpvaG5zb25jaGlub25zbzkxOUBnbWFpbC5jb20iLCJpYXQiOjE1MDU5MDY0NDgsImV4cCI6MTUwNjA3OTI0OH0.ZAQBAUM9EJ1JP60VqmcfvmbBawOIqpZwphLLzrruCyg"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -398,13 +399,14 @@ x-access-token: token</p>
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You have been loggedin successfully"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpjaGlub25zb29vIiwidXNlcklkIjoxLCJlbWFpbCI6ImpvaG51dUBnbWFpbC5jb20iLCJpYXQiOjE1MDU4MDE1ODksImV4cCI6MTUwNTk3NDM4OX0.DiDVLiuM75wwnbw8XMS0bNMBBnkh0WG9RBqqA4i7LuQ"</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully login!"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5ueXAiLCJ1c2VySWQiOiI1YTAwMmM1MjRhN2JmY2MyYTc5MDg1NTEiLCJlbWFpbCI6ImpvaG5wQGdtYWlsLmNvbSIsImlhdCI6MTUwOTk2MDk0MywiZXhwIjoxNTEwMDQ3MzQzfQ.u6A5ASWlHgoiwPGQE-mUcgsgBdpGTc_BrXeXRqBCCaA"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h1 id='groups'>Groups</h1><h2 id='create-group'>Create Group</h2><h3 id='request-3'>Request</h3>
+</span></code></pre><h1 id='todos'>Todos</h1><h2 id='create-todo'>Create Todo</h2><h3 id='request-3'>Request</h3>
 <ul>
-<li>Endpoint: Post: <code>/api/v1/group</code> </li>
+<li>Endpoint: Post: <code>/api/v1/todo</code> </li>
 <li>Body  <code>(application/json)</code> </li>
 </ul>
 <h3 id='response-3'>Response</h3>
@@ -417,9 +419,8 @@ x-access-token: token</p>
 <p>Request:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nairobi-fellows"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Talks about andela kenya"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Studying"</span><span class="w">
+ </span><span class="p">},</span><span class="w">
 
 </span></code></pre>
 <aside class="notice">You must set the token at the header after sign up to access protected routes (x-access-token: token)</aside>
@@ -427,16 +428,29 @@ x-access-token: token</p>
 <blockquote>
 <p>Response:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nairobi-fellows"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Talks about andela kenya"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"creator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jchinonsooo"</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"todo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fffb068ae3e0b2cd070d1f"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Studying"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"creator"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fc257d46900b201d9c1315"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnnyparagon"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnson chinonso"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"59fffb278ae3e0b2cd070d20"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"collaborators"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"59fc257d46900b201d9c1315"</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h2 id='retrieve-all-groups'>Retrieve all Groups</h2><h3 id='request-4'>Request</h3>
+</span></code></pre><h2 id='retrieve-all-todos'>Retrieve all Todos</h2><h3 id='request-4'>Request</h3>
 <ul>
-<li>Endpoint: Get: <code>/api/v1/group</code> </li>
+<li>Endpoint: Get: <code>/api/v1/todo</code> </li>
 <li>Body  <code>(application/json)</code> </li>
 </ul>
 <h3 id='response-4'>Response</h3>
@@ -448,20 +462,78 @@ x-access-token: token</p>
 <blockquote>
 <p>Response:</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"newTodo"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nairobi-fellows"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"talks about andela nairobi"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"creator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-20T19:56:54.681Z"</span><span class="w">
+            </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fffb068ae3e0b2cd070d1f"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Studying"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"creator"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fc257d46900b201d9c1315"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnnyparagon"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnson chinonso"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fffb278ae3e0b2cd070d20"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newtask"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-06T06:01:33.825Z"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"task_completer"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"normal"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"collaborators"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fc257d46900b201d9c1315"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnnyparagon"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnson chinonso"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a002db64a7bfcc2a7908552"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newtask"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"creator"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fc257d46900b201d9c1315"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnnyparagon"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnson chinonso"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="s2">"collaborators"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fc257d46900b201d9c1315"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnnyparagon"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnson chinonso"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a002df54a7bfcc2a7908553"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Meditation"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"creator"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fc257d46900b201d9c1315"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnnyparagon"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnson chinonso"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+            </span><span class="s2">"collaborators"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fc257d46900b201d9c1315"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnnyparagon"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnson chinonso"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h2 id='add-user-to-group'>Add User to Group</h2><h3 id='request-5'>Request</h3>
+</span></code></pre><h2 id='add-collaborators-to-todo'>Add Collaborators to Todo</h2><h3 id='request-5'>Request</h3>
 <ul>
-<li>Endpoint: Post: <code>/api/v1/group/groupId/user</code> </li>
+<li>Endpoint: Post: <code>/api/v1/todos/todoId/collaborator</code> </li>
 <li>Body  <code>(application/json)</code> </li>
 </ul>
 <h3 id='response-5'>Response</h3>
@@ -474,7 +546,7 @@ x-access-token: token</p>
 <p>Request:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnnyp"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"macdoe"</span><span class="p">,</span><span class="w">
   </span><span class="p">},</span><span class="w">
 
 </span></code></pre>
@@ -482,47 +554,16 @@ x-access-token: token</p>
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User added successfully to Group"</span><span class="w">
+  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Collaborator have be successfully added"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h2 id='retrieve-all-group-members'>Retrieve all Group Members</h2><h3 id='request-6'>Request</h3>
+</span></code></pre><h2 id='add-task-to-todo'>Add task to todo</h2><h3 id='request-6'>Request</h3>
 <ul>
-<li>Endpoint: Get: <code>/api/v1/group/groupId</code> </li>
+<li>Endpoint: Post: <code>/api/v1/todos/todoId/task</code> </li>
 <li>Body  <code>(application/json)</code> </li>
 </ul>
 <h3 id='response-6'>Response</h3>
-<ul>
-<li>Status: <code>200 ok</code> </li>
-<li>Body  <code>(application/json)</code> </li>
-</ul>
-
-<blockquote>
-<p>Response:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"groupMembers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnuu@gmail.com"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"997897898797879"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-20T19:55:51.699Z"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnny"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnnyp@gmail.com"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"997897898797879"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-20T19:56:22.891Z"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre><h2 id='add-message-to-group'>Add Message to Group</h2><h3 id='request-7'>Request</h3>
-<ul>
-<li>Endpoint: Post: <code>/api/v1/group/groupId/message</code> </li>
-<li>Body  <code>(application/json)</code> </li>
-</ul>
-<h3 id='response-7'>Response</h3>
 <ul>
 <li>Status: <code>201 created</code> </li>
 <li>Body  <code>(application/json)</code> </li>
@@ -532,8 +573,8 @@ x-access-token: token</p>
 <p>Request:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"i need some pizza"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mormal"</span><span class="w">
+    </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newTask"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"normal"</span><span class="w">
   </span><span class="p">},</span><span class="w">
 
 </span></code></pre>
@@ -541,20 +582,23 @@ x-access-token: token</p>
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"i need some pizza"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"sender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"normal"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"isRead"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-20T20:43:01.042Z"</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"task"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newtask"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a002fb54a7bfcc2a7908554"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-06T09:32:29.179Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"normal"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre><h2 id='retrive-all-group-messages'>Retrive all Group Messages</h2><h3 id='request-8'>Request</h3>
+</span></code></pre><h2 id='retrieve-all-tasks-that-belongs-to-todo'>Retrieve all Tasks that belongs to Todo</h2><h3 id='request-7'>Request</h3>
 <ul>
-<li>Endpoint: Get: <code>/api/v1/group/groupId/message</code> </li>
+<li>Endpoint: Get: <code>/api/v1/todos/todoId/task</code> </li>
 <li>Body  <code>(application/json)</code> </li>
 </ul>
-<h3 id='response-8'>Response</h3>
+<h3 id='response-7'>Response</h3>
 <ul>
 <li>Status: <code>200 ok</code> </li>
 <li>Body  <code>(application/json)</code> </li>
@@ -564,18 +608,80 @@ x-access-token: token</p>
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"messages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"i love pizza"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fffb278ae3e0b2cd070d20"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newtask"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-06T06:01:33.825Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"task_completer"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
             </span><span class="s2">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"normal"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"groupId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"sender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jdoe"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"isRead"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-20T20:43:01.042Z"</span><span class="p">,</span><span class="w">
-            </span><span class="s2">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-20T20:43:01.042Z"</span><span class="w">
+            </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a002fb54a7bfcc2a7908554"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newtask"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-06T09:32:29.179Z"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"task_completer"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"normal"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre><h2 id='update-task'>Update task</h2><h3 id='request-8'>Request</h3>
+<ul>
+<li>Endpoint: Put: <code>/api/v1/todos/todoId/task/taskId</code> </li>
+<li>Body  <code>(application/json)</code> </li>
+</ul>
+<h3 id='response-8'>Response</h3>
+<ul>
+<li>Status: <code>201 created</code> </li>
+<li>Body  <code>(application/json)</code> </li>
+</ul>
+
+<blockquote>
+<p>Request:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+
+</span></code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"editedTask"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fffb278ae3e0b2cd070d20"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-06T06:01:33.825Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"task_completer"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"normal"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre><h2 id='delete-a-task'>Delete a task</h2><h3 id='request-9'>Request</h3>
+<ul>
+<li>Endpoint: Delete: <code>/api/v1/todos/todoId/task/taskId</code> </li>
+<li>Body  <code>(application/json)</code> </li>
+</ul>
+<h3 id='response-9'>Response</h3>
+<ul>
+<li>Status: <code>200 ok</code> </li>
+<li>Body  <code>(application/json)</code> </li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully deleted"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre><h1 id='errors'>Errors</h1>
