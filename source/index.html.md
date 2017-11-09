@@ -16,42 +16,41 @@ search: true
 
 # Introduction
 
-PostIt is a simple application that allows friends and colleagues create groups for notifications. This way one person can post notifications to everyone by sending a message once. The application allows people create accounts, create groups and add registered users to the groups, and then send messages out to these groups whenever they want.
+Worklist is a simple todo list application that allows users to create lists of tasks to be completed and track their progress on these tasks.
 
 # Development
 
 
-The application was developed with [NodeJs](http://nodejs.org) and [Express](http://expressjs.com) is used for routing. The [Postgres](http://postgresql.com) database was used with [sequelize](http://sequelizejs.com) as the ORM
+The application was developed with [NodeJs](http://nodejs.org) and [Express](http://expressjs.com) is used for routing. The [MongoDb](https://www.mongodb.com/) database was used with [mongoose](https://mongoosejs.com) as the ODM
 
 
 #Installation
 
-1.  Ensure you have NodeJs and postgres installed
-2.  Clone the repository `https://github.com/jchinonso/PostIt`
-3.  Change your directory `cd PostIt`
+1.  Ensure you have NodeJs and Mongodb installed
+2.  Clone the repository `https://github.com/jchinonso/WorkList`
+3.  Change your directory `cd WorkList`
 4.  Install all dependencies `npm install`
-5.  Start the app `npm run start:dev` for development Or
-6.  Run `npm start` to use transpiled code
-7.  Use [postman](https://www.getpostman.com/) to consume the API
+5.  Start the app `npm start` for development Or
+7.  Use [postman] to consume the API
 
 # Authentication
 
-PostIt uses (email and password) to login to allow access to the API protected routes. On registering or login, a token is generated.
-postIt expects for the token to be included in all API requests to the server in a header that looks like the following:
-x-access-token: token
+CheckList uses (email and password) to login to allow access to the API protected routes. On registering or login, a token is generated.
+CheckList expect the token to be included in the header as `x-access-token: token`. All API requests to the server are stated below
+
 
 # Api Summary
 
 ## Below are the API endpoints and their functions
-EndPoint                        |   Functionality
---------------------------------|------------------------
-POST /api/user/signin           |   Logs a user in.
-POST /api/user/signup           |   Create a new user.            
-GET /api/user                   |   Get all users.
-POST /api/group                 |   Creates a new group.
-POST /api/group/groupid/user    |   Add user to group.
-POST /api/group/groupid/message |   Add message to group.
-GET /api/group/groupid/message  |   Get all messages that belongs to group.
+EndPoint                               |   Functionality
+---------------------------------------|------------------------
+POST /api/v1/user/signin               |   Logs a user in.
+POST /api/v1/user/signup               |   Create a new user.            
+GET /api/v1/user                       |   Get all users.
+POST /api/v1/todo                      |   Creates a new todo.
+POST /api/v1/todo/:todoId/task         |   Add task to todo.
+POST /api/v1/todo/:todoId/collaborator |   Add collaborators to todo.
+PUT /api/v1/todo/task/:taskId          |   Update a task.
 
 
 # Users
@@ -71,10 +70,10 @@ GET /api/group/groupid/message  |   Get all messages that belongs to group.
 
 ```json
  {
+    "name": "johnson chinonso",
     "username": "jchinonso12",
     "email": "johnsonchinonso919@gmail.com",
-    "password": "password",
-    "phoneNumber": "08139308818",
+    "password": "password"
   },
 
 ```
@@ -84,10 +83,10 @@ GET /api/group/groupid/message  |   Get all messages that belongs to group.
 
 ```json
  {
-   "id": 1,
+    "success": true,
+    "name": "johnson chinonso",
     "username": "jchinonso12",
     "email": "johnsonchinonso919@gmail.com",
-    "phoneNumber": "08139308818",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpjaGlub25zbzEyIiwidXNlcklkIjozLCJlbWFpbCI6ImpvaG5zb25jaGlub25zbzkxOUBnbWFpbC5jb20iLCJpYXQiOjE1MDU5MDY0NDgsImV4cCI6MTUwNjA3OTI0OH0.ZAQBAUM9EJ1JP60VqmcfvmbBawOIqpZwphLLzrruCyg"
 }
 
@@ -119,18 +118,19 @@ GET /api/group/groupid/message  |   Get all messages that belongs to group.
 
 ```json
 {
-    "msg": "You have been loggedin successfully",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpjaGlub25zb29vIiwidXNlcklkIjoxLCJlbWFpbCI6ImpvaG51dUBnbWFpbC5jb20iLCJpYXQiOjE1MDU4MDE1ODksImV4cCI6MTUwNTk3NDM4OX0.DiDVLiuM75wwnbw8XMS0bNMBBnkh0WG9RBqqA4i7LuQ"
+    "success": true,
+    "message": "Successfully login!",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5ueXAiLCJ1c2VySWQiOiI1YTAwMmM1MjRhN2JmY2MyYTc5MDg1NTEiLCJlbWFpbCI6ImpvaG5wQGdtYWlsLmNvbSIsImlhdCI6MTUwOTk2MDk0MywiZXhwIjoxNTEwMDQ3MzQzfQ.u6A5ASWlHgoiwPGQE-mUcgsgBdpGTc_BrXeXRqBCCaA"
 }
 
 ```
 
-# Groups
-## Create Group
+# Todos
+## Create Todo
 
 ### Request
 
-  * Endpoint: Post: `/api/v1/group` 
+  * Endpoint: Post: `/api/v1/todo` 
   * Body  `(application/json)` 
 
 ### Response
@@ -141,9 +141,8 @@ GET /api/group/groupid/message  |   Get all messages that belongs to group.
 
 ```json
  {
-    "name": "Nairobi-fellows",
-    "description": "Talks about andela kenya"
-  },
+    "text": "Studying"
+ },
 
 ```
 <aside class="notice">You must set the token at the header after sign up to access protected routes (x-access-token: token)</aside>
@@ -151,20 +150,33 @@ GET /api/group/groupid/message  |   Get all messages that belongs to group.
 > Response:
 
 ```json
- {
-    "id": 1,
-    "name": "Nairobi-fellows",
-    "description": "Talks about andela kenya",
-    "creator": "jchinonsooo"
+{
+    "success": true,
+    "todo": {
+        "_id": "59fffb068ae3e0b2cd070d1f",
+        "text": "Studying",
+        "creator": {
+            "_id": "59fc257d46900b201d9c1315",
+            "username": "johnnyparagon",
+            "name": "johnson chinonso"
+        },
+        "__v": 1,
+        "tasks": [
+            "59fffb278ae3e0b2cd070d20"
+        ],
+        "collaborators": [
+            "59fc257d46900b201d9c1315"
+        ]
+    }
 }
 
 ```
 
-## Retrieve all Groups
+## Retrieve all Todos
 
 ### Request
 
-  * Endpoint: Get: `/api/v1/group` 
+  * Endpoint: Get: `/api/v1/todo` 
   * Body  `(application/json)` 
 
 ### Response
@@ -175,24 +187,82 @@ GET /api/group/groupid/message  |   Get all messages that belongs to group.
 > Response:
 
 ```json
- {
-    "groups": [
+{
+    "success": true,
+    "newTodo": [
         {
-            "id": 1,
-            "name": "Nairobi-fellows",
-            "description": "talks about andela nairobi",
-            "creator": "jdoe",
-            "createdAt": "2017-09-20T19:56:54.681Z"
+            "_id": "59fffb068ae3e0b2cd070d1f",
+            "text": "Studying",
+            "creator": {
+                "_id": "59fc257d46900b201d9c1315",
+                "username": "johnnyparagon",
+                "name": "johnson chinonso"
+            },
+            "__v": 1,
+            "tasks": [
+                {
+                    "_id": "59fffb278ae3e0b2cd070d20",
+                    "text": "newtask",
+                    "__v": 0,
+                    "createdAt": "2017-11-06T06:01:33.825Z",
+                    "task_completer": "",
+                    "priority": "normal",
+                    "completed": false
+                }
+            ],
+            "collaborators": [
+                {
+                    "_id": "59fc257d46900b201d9c1315",
+                    "username": "johnnyparagon",
+                    "name": "johnson chinonso"
+                }
+            ]
+        },
+        {
+            "_id": "5a002db64a7bfcc2a7908552",
+            "text": "newtask",
+            "creator": {
+                "_id": "59fc257d46900b201d9c1315",
+                "username": "johnnyparagon",
+                "name": "johnson chinonso"
+            },
+            "__v": 0,
+            "tasks": [],
+            "collaborators": [
+                {
+                    "_id": "59fc257d46900b201d9c1315",
+                    "username": "johnnyparagon",
+                    "name": "johnson chinonso"
+                }
+            ]
+        },
+        {
+            "_id": "5a002df54a7bfcc2a7908553",
+            "text": "Meditation",
+            "creator": {
+                "_id": "59fc257d46900b201d9c1315",
+                "username": "johnnyparagon",
+                "name": "johnson chinonso"
+            },
+            "__v": 0,
+            "tasks": [],
+            "collaborators": [
+                {
+                    "_id": "59fc257d46900b201d9c1315",
+                    "username": "johnnyparagon",
+                    "name": "johnson chinonso"
+                }
+            ]
         }
     ]
 }
 ```
 
-## Add User to Group
+## Add Collaborators to Todo
 
 ### Request
 
-  * Endpoint: Post: `/api/v1/group/groupId/user` 
+  * Endpoint: Post: `/api/v1/todos/todoId/collaborator` 
   * Body  `(application/json)` 
 
 ### Response
@@ -203,7 +273,7 @@ GET /api/group/groupid/message  |   Get all messages that belongs to group.
 
 ```json
  {
-    "username": "johnnyp",
+    "username": "macdoe",
   },
 
 ```
@@ -212,50 +282,16 @@ GET /api/group/groupid/message  |   Get all messages that belongs to group.
 
 ```json
 {
-  "msg": "User added successfully to Group"
+  "success": true,
+  "message": "Collaborator have be successfully added"
 }
 
 ```
-## Retrieve all Group Members
+## Add task to todo
 
 ### Request
 
-  * Endpoint: Get: `/api/v1/group/groupId` 
-  * Body  `(application/json)` 
-
-### Response
-  * Status: `200 ok` 
-  * Body  `(application/json)` 
-
-
-> Response:
-
-```json
- {
-    "groupMembers": [
-        {
-            "id": 1,
-            "username": "jdoe",
-            "email": "johnuu@gmail.com",
-            "phoneNumber": "997897898797879",
-            "createdAt": "2017-09-20T19:55:51.699Z"
-        },
-        {
-            "id": 2,
-            "username": "johnny",
-            "email": "johnnyp@gmail.com",
-            "phoneNumber": "997897898797879",
-            "createdAt": "2017-09-20T19:56:22.891Z"
-        },
-    ]
-}
-```
-
-## Add Message to Group
-
-### Request
-
-  * Endpoint: Post: `/api/v1/group/groupId/message` 
+  * Endpoint: Post: `/api/v1/todos/todoId/task` 
   * Body  `(application/json)` 
 
 ### Response
@@ -266,56 +302,126 @@ GET /api/group/groupid/message  |   Get all messages that belongs to group.
 
 ```json
  {
-    "content": "i need some pizza",
-    "priority": "mormal"
+    "text": "newTask",
+    "priority": "normal"
   },
 
 ```
-
 > Response:
 
 ```json
 {
-    "id": 1,
-    "content": "i need some pizza",
-    "sender": "jdoe",
-    "priority": "normal",
-    "isRead": false,
-    "createdAt": "2017-09-20T20:43:01.042Z"
+    "success": true,
+    "task": {
+        "__v": 0,
+        "text": "newtask",
+        "_id": "5a002fb54a7bfcc2a7908554",
+        "createdAt": "2017-11-06T09:32:29.179Z",
+        "priority": "normal",
+        "completed": false
+    }
 }
 
 ```
-
-## Retrive all Group Messages 
+## Retrieve all Tasks that belongs to Todo
 
 ### Request
 
-  * Endpoint: Get: `/api/v1/group/groupId/message` 
+  * Endpoint: Get: `/api/v1/todos/todoId/task` 
   * Body  `(application/json)` 
 
 ### Response
   * Status: `200 ok` 
   * Body  `(application/json)` 
 
-
 > Response:
 
 ```json
 {
-    "messages": [
+    "success": true,
+    "tasks": [
         {
-            "id": 1,
-            "content": "i love pizza",
+            "_id": "59fffb278ae3e0b2cd070d20",
+            "text": "newtask",
+            "__v": 0,
+            "createdAt": "2017-11-06T06:01:33.825Z",
+            "task_completer": "",
             "priority": "normal",
-            "groupId": 1,
-            "sender": "jdoe",
-            "isRead": false,
-            "createdAt": "2017-09-20T20:43:01.042Z",
-            "updatedAt": "2017-09-20T20:43:01.042Z"
+            "completed": false
+        },
+        {
+            "_id": "5a002fb54a7bfcc2a7908554",
+            "text": "newtask",
+            "__v": 0,
+            "createdAt": "2017-11-06T09:32:29.179Z",
+            "task_completer": "",
+            "priority": "normal",
+            "completed": false
         }
     ]
 }
 
 ```
+## Update task
+
+### Request
+
+  * Endpoint: Put: `/api/v1/todos/todoId/task/taskId` 
+  * Body  `(application/json)` 
+
+### Response
+  * Status: `201 created` 
+  * Body  `(application/json)` 
+
+> Request:
+
+```json
+ {
+    "completed": true,
+  },
+
+```
+> Response:
+
+```json
+{
+    "success": true,
+    "editedTask": {
+        "_id": "59fffb278ae3e0b2cd070d20",
+        "completed": true,
+        "__v": 0,
+        "createdAt": "2017-11-06T06:01:33.825Z",
+        "task_completer": "",
+        "priority": "normal"
+    }
+}
+
+```
+## Delete a task
+
+### Request
+
+  * Endpoint: Delete: `/api/v1/todos/todoId/task/taskId` 
+  * Body  `(application/json)` 
+
+### Response
+  * Status: `200 ok` 
+  * Body  `(application/json)` 
+
+
+> Response:
+
+```json
+{
+    "success": true,
+    "message": "Successfully deleted"
+}
+
+```
+
+
+
+
+
 
 
