@@ -353,9 +353,9 @@ CheckList expect the token to be included in the header as <code>x-access-token:
 <p>Request:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnson chinonso"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jchinonso12"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnsonchinonso919@gmail.com"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"okoro"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"releku ami"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pythago@gmail.com"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="w">
   </span><span class="p">},</span><span class="w">
 
@@ -366,11 +366,15 @@ CheckList expect the token to be included in the header as <code>x-access-token:
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnson chinonso"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jchinonso12"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnsonchinonso919@gmail.com"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpjaGlub25zbzEyIiwidXNlcklkIjozLCJlbWFpbCI6ImpvaG5zb25jaGlub25zbzkxOUBnbWFpbC5jb20iLCJpYXQiOjE1MDU5MDY0NDgsImV4cCI6MTUwNjA3OTI0OH0.ZAQBAUM9EJ1JP60VqmcfvmbBawOIqpZwphLLzrruCyg"</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully Signed Up"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"userObject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a0c1707833187d957fca4d5"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"okoro"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"releku ami"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pythago@gmail.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"imageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/dbczzmftw/image/upload/v1509127904/pojdk9ajmdgase3esgg2.png"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im9rb3JvIiwidXNlcklkIjoiNWEwYzE3MDc4MzMxODdkOTU3ZmNhNGQ1IiwibmFtZSI6InJlbGVrdSBhbWkiLCJlbWFpbCI6InB5dGhhZ29AZ21haWwuY29tIiwiaW1hZ2VVcmwiOiJodHRwOi8vcmVzLmNsb3VkaW5hcnkuY29tL2RiY3p6bWZ0dy9pbWFnZS91cGxvYWQvdjE1MDkxMjc5MDQvcG9qZGs5YWptZGdhc2UzZXNnZzIucG5nIiwiaWF0IjoxNTEwNzQxNzY3LCJleHAiOjE1MTA4MjgxNjd9.vmwlaxkBpoVJiPcNl2yEzBpZ18forFNNU0ze7rfpyPo"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre><h2 id='sign-in-user'>Sign in User</h2><h3 id='request-2'>Request</h3>
@@ -390,7 +394,7 @@ CheckList expect the token to be included in the header as <code>x-access-token:
 <p>Request:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"johnsonchinonso919@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pythago@gmail.com"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
  </span><span class="p">},</span><span class="w">
 
@@ -399,9 +403,15 @@ CheckList expect the token to be included in the header as <code>x-access-token:
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully login!"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5ueXAiLCJ1c2VySWQiOiI1YTAwMmM1MjRhN2JmY2MyYTc5MDg1NTEiLCJlbWFpbCI6ImpvaG5wQGdtYWlsLmNvbSIsImlhdCI6MTUwOTk2MDk0MywiZXhwIjoxNTEwMDQ3MzQzfQ.u6A5ASWlHgoiwPGQE-mUcgsgBdpGTc_BrXeXRqBCCaA"</span><span class="w">
+    </span><span class="s2">"userObject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a0c1707833187d957fca4d5"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"okoro"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"releku ami"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pythago@gmail.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"imageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://res.cloudinary.com/dbczzmftw/image/upload/v1509127904/pojdk9ajmdgase3esgg2.png"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im9rb3JvIiwidXNlcklkIjoiNWEwYzE3MDc4MzMxODdkOTU3ZmNhNGQ1IiwibmFtZSI6InJlbGVrdSBhbWkiLCJlbWFpbCI6InB5dGhhZ29AZ21haWwuY29tIiwiaW1hZ2VVcmwiOiJodHRwOi8vcmVzLmNsb3VkaW5hcnkuY29tL2RiY3p6bWZ0dy9pbWFnZS91cGxvYWQvdjE1MDkxMjc5MDQvcG9qZGs5YWptZGdhc2UzZXNnZzIucG5nIiwiaWF0IjoxNTEwNzQxODM2LCJleHAiOjE1MTA4MjgyMzZ9.iigrt7wfOHGPPGzigxG3hHCCgC7db6PN4DULgos5TXw"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre><h1 id='todos'>Todos</h1><h2 id='create-todo'>Create Todo</h2><h3 id='request-3'>Request</h3>
@@ -429,7 +439,6 @@ CheckList expect the token to be included in the header as <code>x-access-token:
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"todo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fffb068ae3e0b2cd070d1f"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Studying"</span><span class="p">,</span><span class="w">
@@ -463,7 +472,6 @@ CheckList expect the token to be included in the header as <code>x-access-token:
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"newTodo"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fffb068ae3e0b2cd070d1f"</span><span class="p">,</span><span class="w">
@@ -554,7 +562,6 @@ CheckList expect the token to be included in the header as <code>x-access-token:
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Collaborator have be successfully added"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -582,7 +589,6 @@ CheckList expect the token to be included in the header as <code>x-access-token:
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"task"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"__v"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="s2">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newtask"</span><span class="p">,</span><span class="w">
@@ -608,7 +614,6 @@ CheckList expect the token to be included in the header as <code>x-access-token:
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fffb278ae3e0b2cd070d20"</span><span class="p">,</span><span class="w">
@@ -654,7 +659,6 @@ CheckList expect the token to be included in the header as <code>x-access-token:
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"editedTask"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"59fffb278ae3e0b2cd070d20"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
@@ -680,7 +684,6 @@ CheckList expect the token to be included in the header as <code>x-access-token:
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully deleted"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
